@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 
 class PTS_calibrator():
-    """Class for Parameterized Temperature Scaling (PTS)."""
+    """Class for Parameterized Temperature Scaling (PTS)"""
     def __init__(
         self,
         epochs,
