@@ -9,8 +9,8 @@ The PTS model can be applied as follows:
 
 **Generate PTS model**\
 ```
-`import pts_calibrator`
-`pts = pts_calibrator.PTS_calibrator(
+import pts_calibrator
+pts = pts_calibrator.PTS_calibrator(
         epochs=...,
         lr=...,
         weight_decay=...,
@@ -22,9 +22,11 @@ The PTS model can be applied as follows:
 ```
 
 **Tune PTS model based on validation data**\
+
 `pts.tune(logits_valid, labels_valid)`
 
 **Calibrate logits**\
+
 `probs = pts.calibrate(logits)`
 
 
