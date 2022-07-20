@@ -66,7 +66,7 @@ Required package from Kumar et al.: `pip3 install uncertainty-calibration`
 
 `brier = metrics.brier(probs, labels)`
 
-## Citation:
+## Citation
 
 If you find this library useful please consider citing our paper:
 ```
