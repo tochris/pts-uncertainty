@@ -24,7 +24,7 @@ class PTS_calibrator():
             n_layers (int): number of layers of PTS model
             n_nodes (int): number of nodes of each hidden layer
             length_logits (int): length of logits vector
-            top_k_logits (int): top k logits that are used for tuning
+            top_k_logits (int): top k logits used for tuning
         """
 
         self.epochs = epochs
@@ -61,13 +61,8 @@ class PTS_calibrator():
 
         self.model.compile(
             optimizer=tf.keras.optimizers.Adam(self.lr),
-            loss=tf.keras.losses.MeanSquaredError(),
-            metrics=[tf.keras.metrics.CategoricalAccuracy(),
-                tf.keras.metrics.MeanSquaredError(),
-                tf.keras.metrics.MeanAbsoluteError(),
-                tf.keras.metrics.CategoricalCrossentropy()])
+            loss=tf.keras.losses.MeanSquaredError())
         self.model.summary()
-
 
 
     def tune(self, logits, labels, clip=1e2):
@@ -88,16 +83,7 @@ class PTS_calibrator():
 
         logits = np.clip(logits, -clip, clip)
 
-        print("Logits Valid: ")
-        print("Mean: ", np.mean(logits))
-        print("STD: ", np.std(logits))
-        print("Min: ", np.min(logits))
-        print("Max: ", np.max(logits))
-
         self.model.fit(logits, labels, epochs=self.epochs, batch_size=self.batch_size)
-
-        #self.theta.evaluate(logits, labels, batch_size=50000)
-        #self.theta.evaluate(valid_logits, valid_labels, batch_size=50000)
 
 
     def calibrate(self, logits, clip=1e2):
@@ -115,8 +101,6 @@ class PTS_calibrator():
         assert logits.get_shape()[1] == self.length_logits, "logits need to have same length as length_logits!"
 
         calibrated_probs = self.model.predict(tf.clip_by_value(logits, -clip, clip))
-        print("probs_max: ", np.mean(np.max(calibrated_probs, axis=1)))
-        print("probs_std: ", np.std(np.max(calibrated_probs, axis=1)))
 
         return calibrated_probs
 
@@ -130,8 +114,6 @@ class PTS_calibrator():
         print("Save PTS model to: ", os.path.join(path, "pts_model.h5"))
         self.model.save_weights(os.path.join(path, "pts_model.h5"))
 
-        #print("Save PTS model parameters to: ", os.path.join(path, "number_parameters.txt"))
-        #save_obj_txt(str(self.n_model_parameters), path, "number_parameters.txt")
 
     def load(self, path = "./"):
         """Load PTS model parameters"""

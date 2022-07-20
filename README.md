@@ -7,27 +7,47 @@ This repository is the official implementation of the Parameterized Temperature 
 
 The PTS model can be applied as follows:
 
-**Generate PTS model**\
+**Generate PTS model**
 ```
 import pts_calibrator
 pts = pts_calibrator.PTS_calibrator(
-        epochs=...,
-        lr=...,
-        weight_decay=...,
-        batch_size=...,
-        nlayers=...,
-        n_nodes=...,
-        length_logits=...,
-        top_k_logits=...)
+        epochs = ...,
+        lr = ...,
+        weight_decay = ...,
+        batch_size = ...,
+        nlayers = ...,
+        n_nodes = ...,
+        length_logits = ...,
+        top_k_logits = ...)
 ```
 
-**Tune PTS model based on validation data**\
+Arguments for PTS model:\
+`epochs`: number of epochs for model tuning\
+`lr`: learning rate for model tuning\
+`weight_decay`: lambda for weight decay in loss function\
+`batch_size`: batch_size for model tuning\
+`n_layers`: number of layers\
+`n_nodes`: number of nodes of each hidden layer\
+`length_logits`: length of logits vector\
+`top_k_logits`: top k logits used for tuning\
+
+
+**Tune PTS model based on validation data**
 
 `pts.tune(logits_valid, labels_valid)`
 
-**Calibrate logits**\
+Arguments:\
+`logits_valid` (tf.tensor or np.array): logits based on validation set of shape (N,length_logits)
+`labels_valid` (tf.tensor or np.array): labels based on validation set of shape (N,length_logits)
+
+
+**Calibrate logits**
 
 `probs = pts.calibrate(logits)`
+
+Arguments:\
+`logits` (tf.tensor or np.array): logits of shape (N,length_logits)
+
 
 
 ## Evaluation
