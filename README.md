@@ -1,6 +1,7 @@
 # Parameterized Temperature Scaling
 
-This repository is the official implementation of the uncertainty calibration method Parameterized Temperature Scaling (PTS) from: \
+This repository is the official implementation of Parameterized Temperature Scaling (PTS) from: 
+
 "Christian Tomani, Daniel Cremers, Florian Buettner, Parameterized Temperature Scaling for Boosting the Expressive Power in Post-Hoc Uncertainty Calibration, ECCV 2022". [[Paper]](https://arxiv.org/abs/2102.12182)
 
 
@@ -30,7 +31,7 @@ pts = pts_calibrator.PTS_calibrator(
 `n_layers`: number of layers\
 `n_nodes`: number of nodes of each hidden layer\
 `length_logits`: length of logits vector\
-`top_k_logits`: top k logits used for tuning\
+`top_k_logits`: top k logits used for tuning
 
 
 ### Tune PTS model based on validation data
@@ -53,7 +54,7 @@ pts = pts_calibrator.PTS_calibrator(
 
 ## Evaluation
 ### ECE - Expected calibration error (Guo et al)
-Required package from Kumar et al. (pip3 install uncertainty-calibration)
+Required package from Kumar et al.: `pip3 install uncertainty-calibration`
 
 `ece = metrics.ece(probs, labels)`
 
@@ -69,7 +70,7 @@ Required package from Kumar et al. (pip3 install uncertainty-calibration)
 
 If you find this library useful please consider citing our paper:
 ```
-@InProceedings{Tomani_2021_CVPR,
+@InProceedings{Tomani_2022_ECCV,
     author    = {Tomani, Christian and Cremers, Daniel and Buettner, Florian},
     title     = {Parameterized temperature scaling for boosting the expressive power in post-hoc uncertainty calibration},
     booktitle = {In European Conference on Computer Vision (ECCV)},
